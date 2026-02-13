@@ -13,3 +13,8 @@ struct CellModel {
     let imageName: String
     let cellBackgroundColor: UIColor
 }
+
+struct GroupCellModel {
+    let groupTitle: String
+    let cellModels: [CellModel]
+}

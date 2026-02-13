@@ -1,13 +1,13 @@
 //
-//  MainViewController.swift
+//  MainViewControllerForSections.swift
 //  Lesson13_UITableView_Homework
 //
-//  Created by Valery Zvonarev on 12.02.2026.
+//  Created by Valery Zvonarev on 13.02.2026.
 //
 
 import UIKit
 
-final class MainViewController: UIViewController {
+final class MainViewControllerForSections: UIViewController {
 
     // MARK: - Properties
     private var cellViewModel = CellViewModel()
@@ -50,24 +50,44 @@ final class MainViewController: UIViewController {
         ])
     }
 
+    private func makeHeader(with section: Int) -> UIView {
+        let headerView = UIView()
+        headerView.backgroundColor = .systemGray6
+
+        let label = UILabel()
+        label.text = cellViewModel.tableGroups[section].groupTitle
+        label.font = .systemFont(ofSize: 22, weight: .bold)
+        label.textColor = .systemRed
+        label.translatesAutoresizingMaskIntoConstraints = false
+
+        headerView.addSubview(label)
+
+        NSLayoutConstraint.activate([
+            label.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: 10),
+            label.centerYAnchor.constraint(equalTo: headerView.centerYAnchor)
+        ])
+
+        return headerView
+    }
+
     //    @objc private func didTapButton(){
     //    }
 }
 
-extension MainViewController: UITableViewDataSource {
+extension MainViewControllerForSections: UITableViewDataSource {
 
-//    func numberOfSections(in tableView: UITableView) -> Int {
-//        cellViewModel.tableGroups.count
-//    }
-
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        cellViewModel.tableContent.count
-//        cellViewModel.tableGroups[section].cellModels.count
+    func numberOfSections(in tableView: UITableView) -> Int {
+        cellViewModel.tableGroups.count
     }
 
-//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//        cellViewModel.tableGroups[section].
-//    }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        //        cellViewModel.tableContent.count
+        cellViewModel.tableGroups[section].cellModels.count
+    }
+
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        cellViewModel.tableGroups[section].groupTitle
+    }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: CustomCellView.reuseIdentifier, for: indexPath) as? CustomCellView else {
@@ -79,12 +99,15 @@ extension MainViewController: UITableViewDataSource {
     }
 }
 
-extension MainViewController: UITableViewDelegate {
+extension MainViewControllerForSections: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return makeHeader(with: section)
+    }
 
 }
 
 #Preview {
-    MainViewController()
+    MainViewControllerForSections()
 }
 
 

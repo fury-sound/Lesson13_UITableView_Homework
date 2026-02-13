@@ -19,28 +19,28 @@ final class CustomCellView: UITableViewCell {
         label.font = .systemFont(ofSize: 16, weight: .semibold)
         label.textColor = .white
         label.layer.cornerRadius = 12
-        label.backgroundColor = .systemGreen
-//        label.backgroundColor = .clear
+//        label.backgroundColor = .systemGreen
+        label.backgroundColor = .clear
         return label
     }()
 
-//    private lazy var cellTitleView: UIView = {
-//        let view = UIView()
-//        view.translatesAutoresizingMaskIntoConstraints = false
-//        view.layer.cornerRadius = 12
-//        view.backgroundColor = .systemGreen
-//        return view
-//    }()
+    private lazy var containerView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .systemBlue
+        view.layer.cornerRadius = 16
+        return view
+    }()
 
     private lazy var cellSubtitleLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.numberOfLines = 0
-        label.font = .systemFont(ofSize: 14, weight: .thin)
-        label.textColor = .white
-        label.layer.cornerRadius = 12
-        label.backgroundColor = .systemBlue
-        return label
+        let subTitlelabel = UILabel()
+        subTitlelabel.translatesAutoresizingMaskIntoConstraints = false
+        subTitlelabel.numberOfLines = 0
+        subTitlelabel.font = .systemFont(ofSize: 14, weight: .thin)
+        subTitlelabel.textColor = .white
+        subTitlelabel.layer.cornerRadius = 12
+        subTitlelabel.backgroundColor = .clear
+        return subTitlelabel
     }()
 
     private lazy var cellImageView: UIImageView = {
@@ -93,9 +93,13 @@ final class CustomCellView: UITableViewCell {
     private func setupSubviews(){
 //        cellTitleView.addSubview(cellTitleLabel)
 //        contentView.addSubview(cellTitleView)
-        contentView.addSubview(cellTitleLabel)
-        contentView.addSubview(cellSubtitleLabel)
+        contentView.addSubview(containerView)
+        containerView.addSubview(cellTitleLabel)
+        containerView.addSubview(cellSubtitleLabel)
         contentView.addSubview(cellImageView)
+//        contentView.addSubview(cellTitleLabel)
+//        contentView.addSubview(cellSubtitleLabel)
+//        contentView.addSubview(cellImageView)
 
     }
     private func setupConstraints(){
@@ -112,14 +116,28 @@ final class CustomCellView: UITableViewCell {
 //            cellTitleView.widthAnchor.constraint(equalToConstant: 50),
 //            cellTitleView.heightAnchor.constraint(equalToConstant: ),
 
-            cellTitleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
-            cellTitleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
-            cellTitleLabel.trailingAnchor.constraint(equalTo: cellImageView.leadingAnchor, constant: -10),
+            containerView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
+            containerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
+            containerView.trailingAnchor.constraint(equalTo: cellImageView.leadingAnchor, constant: -10),
+            containerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
+
+            cellTitleLabel.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 10),
+            cellTitleLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 10),
+            cellTitleLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -10),
 
             cellSubtitleLabel.topAnchor.constraint(equalTo: cellTitleLabel.bottomAnchor, constant: 5),
-            cellSubtitleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
-            cellSubtitleLabel.trailingAnchor.constraint(equalTo: cellImageView.leadingAnchor, constant: -10),
-            cellSubtitleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
+            cellSubtitleLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 10),
+            cellSubtitleLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -10),
+            cellSubtitleLabel.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -10),
+
+//            cellTitleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
+//            cellTitleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
+//            cellTitleLabel.trailingAnchor.constraint(equalTo: cellImageView.leadingAnchor, constant: -10),
+//
+//            cellSubtitleLabel.topAnchor.constraint(equalTo: cellTitleLabel.bottomAnchor, constant: 5),
+//            cellSubtitleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
+//            cellSubtitleLabel.trailingAnchor.constraint(equalTo: cellImageView.leadingAnchor, constant: -10),
+//            cellSubtitleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
 
             cellImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
             cellImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
@@ -140,7 +158,19 @@ final class CustomCellView: UITableViewCell {
 }
 
 #Preview {
-    CustomCellView()
+    let cell = CustomCellView()
+    cell.frame = CGRect(x: 50, y: 200, width: 300, height: 100)
+    let container = UIView(frame: CGRect(x: 0, y: 0, width: 300, height: 100))
+//    cell.translatesAutoresizingMaskIntoConstraints = false
+//    container.translatesAutoresizingMaskIntoConstraints = false
+//    NSLayoutConstraint.activate([
+//        cell.topAnchor.constraint(equalTo: container.safeAreaLayoutGuide.topAnchor)
+//    ])
+    container.backgroundColor = .systemBackground
+    container.addSubview(cell)
+
+    return container
+    //    CustomCellView()
 }
 
 
