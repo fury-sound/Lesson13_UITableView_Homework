@@ -56,22 +56,49 @@ final class CustomCellView: UITableViewCell {
         return myImageView
     }()
 
-    private var cellBGColor: UIColor = .clear {
+    var cellBGColor: UIColor = .clear {
         didSet {
             contentView.backgroundColor = cellBGColor
         }
     }
+
+    var tempColor: UIColor = UIColor()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupViewProperties()
         setupSubviews()
         setupConstraints()
+//        selectionSetup()
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
+//    override func setHighlighted(_ highlighted: Bool, animated: Bool) {
+//        super.setHighlighted(highlighted, animated: animated)
+////        let tempColor = cellBGColor
+//        if highlighted {
+////            contentView.backgroundColor = .lightGray.withAlphaComponent(0.5)
+//            cellBGColor = .lightGray.withAlphaComponent(0.5)
+//        } else {
+//            cellBGColor = tempColor
+////            contentView.backgroundColor = tempColor
+//        }
+//    }
+//
+//    override func setSelected(_ selected: Bool, animated: Bool) {
+//        super.setSelected(selected, animated: animated)
+////        let tempColor = cellBGColor
+//        if selected {
+////            contentView.backgroundColor = .lightGray.withAlphaComponent(0.5)
+//            cellBGColor = .lightGray.withAlphaComponent(0.5)
+//        } else {
+////            contentView.backgroundColor = tempColor
+//            cellBGColor = tempColor
+//        }
+//    }
 
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -79,6 +106,7 @@ final class CustomCellView: UITableViewCell {
         cellSubtitleLabel.text = nil
         cellImageView.image = nil
         cellBGColor = .clear
+        tempColor = .clear
     }
 
     // MARK: - Subviews
@@ -89,6 +117,18 @@ final class CustomCellView: UITableViewCell {
     private func setupViewProperties(){
         contentView.backgroundColor = cellBGColor
     }
+
+//    private func selectionSetup() {
+//        let mainBackgroundView = UIView()
+//        mainBackgroundView.backgroundColor = cellBGColor
+//        self.selectedBackgroundView = mainBackgroundView
+//
+//        let selectionBackgroundView = UIView()
+//        selectionBackgroundView.backgroundColor = .lightGray.withAlphaComponent(0.5)
+//        self.selectedBackgroundView = selectionBackgroundView
+//
+//        self.selectionStyle = .default
+//    }
 
     private func setupSubviews(){
 //        cellTitleView.addSubview(cellTitleLabel)
@@ -151,6 +191,7 @@ final class CustomCellView: UITableViewCell {
         cellSubtitleLabel.text = model.subtitle
         cellImageView.image = UIImage(systemName: model.imageName)
         cellBGColor = model.cellBackgroundColor
+        tempColor = cellBGColor
     }
 
     //    @objc private func didTapButton(){

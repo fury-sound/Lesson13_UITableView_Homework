@@ -70,6 +70,26 @@ final class MainViewControllerForSections: UIViewController {
         return headerView
     }
 
+    private func makeFooter(with section: Int) -> UIView {
+        let footerView = UIView()
+        footerView.backgroundColor = .systemMint
+
+        let label = UILabel()
+        label.text = "Cекция: \(section + 1). Элементов: \(cellViewModel.tableGroups[section].cellModels.count)"
+        label.font = .systemFont(ofSize: 14, weight: .bold)
+        label.textColor = .white
+        label.translatesAutoresizingMaskIntoConstraints = false
+
+        footerView.addSubview(label)
+
+        NSLayoutConstraint.activate([
+            label.trailingAnchor.constraint(equalTo: footerView.trailingAnchor, constant: -10),
+            label.centerYAnchor.constraint(equalTo: footerView.centerYAnchor)
+        ])
+
+        return footerView
+    }
+
     //    @objc private func didTapButton(){
     //    }
 }
@@ -89,6 +109,10 @@ extension MainViewControllerForSections: UITableViewDataSource {
         cellViewModel.tableGroups[section].groupTitle
     }
 
+    func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+        return "Section Footer"
+    }
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: CustomCellView.reuseIdentifier, for: indexPath) as? CustomCellView else {
             return UITableViewCell()
@@ -100,8 +124,33 @@ extension MainViewControllerForSections: UITableViewDataSource {
 }
 
 extension MainViewControllerForSections: UITableViewDelegate {
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//  анимация тапа по ячейке при заданном кастомном фоне. Видно, если отключить переход на другой вью ниже
+        guard let cell = tableView.cellForRow(at: indexPath) as? CustomCellView else { return }
+
+        UIView.animate(withDuration: 0.7, animations: {
+            cell.cellBGColor = .systemRed.withAlphaComponent(0.5)
+        }) { _ in
+            UIView.animate(withDuration: 0.7) {
+                cell.cellBGColor = cell.tempColor
+            }
+        }
+        tableView.deselectRow(at: indexPath, animated: true)
+
+        //  переход на SecondViewController
+        let section = cellViewModel.tableGroups[indexPath.section]
+        let items = section.cellModels[indexPath.row]
+        let newVC = SecondViewController(titleString: items.title, subTitleString: items.subtitle, iconString: items.imageName)
+            navigationController?.pushViewController(newVC, animated: true)
+    }
+
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         return makeHeader(with: section)
+    }
+
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        return makeFooter(with: section)
     }
 
 }

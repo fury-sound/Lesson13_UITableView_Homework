@@ -11,7 +11,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		B97081F82F3E105A00E51ECA /* Exceptions for "Lesson13_UITableView_Homework" folder in "Lesson13_UITableView_Homework" target */ = {
+		B916E3482F4076D3000ED6C9 /* Exceptions for "Lesson13_UITableView_Homework" folder in "Lesson13_UITableView_Homework" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
@@ -21,10 +21,15 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		B916E32D2F4074DA000ED6C9 /* Resources */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		B97081E82F3E105800E51ECA /* Lesson13_UITableView_Homework */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				B97081F82F3E105A00E51ECA /* Exceptions for "Lesson13_UITableView_Homework" folder in "Lesson13_UITableView_Homework" target */,
+				B916E3482F4076D3000ED6C9 /* Exceptions for "Lesson13_UITableView_Homework" folder in "Lesson13_UITableView_Homework" target */,
 			);
 			path = Lesson13_UITableView_Homework;
 			sourceTree = "<group>";
@@ -47,6 +52,7 @@
 			children = (
 				B97081E82F3E105800E51ECA /* Lesson13_UITableView_Homework */,
 				B97081E72F3E105800E51ECA /* Products */,
+				B916E32D2F4074DA000ED6C9 /* Resources */,
 			);
 			sourceTree = "<group>";
 		};
@@ -74,6 +80,7 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
+				B916E32D2F4074DA000ED6C9 /* Resources */,
 				B97081E82F3E105800E51ECA /* Lesson13_UITableView_Homework */,
 			);
 			name = Lesson13_UITableView_Homework;
